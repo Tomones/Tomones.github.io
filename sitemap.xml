@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://tomones.github.io/about/index.html</loc>
+    
+    <lastmod>2020-07-17T11:02:37.141Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tomones.github.io/tags/index.html</loc>
+    
+    <lastmod>2020-07-17T11:01:22.956Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://tomones.github.io/link/index.html</loc>
     
     <lastmod>2020-07-17T09:17:28.409Z</lastmod>
