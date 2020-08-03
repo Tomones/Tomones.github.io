@@ -64,3 +64,23 @@ export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 # source /etc/profile
 ```
 
+### 查询Linux服务器出网IP
+```shell
+# ip_addr 当前服务器的出网ip
+[root@idp10-server1-local webapps]# curl ifconfig.me/all.xml
+<info>
+    <ip_addr>xxx.xx.xx.xx</ip_addr>
+    <remote_host>unavailable</remote_host>
+    <user_agent>curl/7.29.0</user_agent>
+    <port>27058</port>
+    <language></language>
+    <referer></referer>
+    <connection></connection>
+    <keep_alive></keep_alive>
+    <method>GET</method>
+    <encoding></encoding>
+    <mime>*/*</mime>
+    <charset></charset>
+    <via>1.1 google</via>
+    <forwarded>xxx.xx.xx.xx, xxx.xxx.xx.xx</forwarded>
+```
