@@ -84,3 +84,28 @@ export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
     <via>1.1 google</via>
     <forwarded>xxx.xx.xx.xx, xxx.xxx.xx.xx</forwarded>
 ```
+
+### Linux下查看端口占用
+
+```shell
+# 查看8080端口占用情况
+root@idp10-server1-local webapps]# netstat -anp |grep 8080
+tcp6       0      0 :::8080                 :::*                    LISTEN      81694/java          
+tcp6       0      0 127.0.0.1:8080          127.0.0.1:52738         TIME_WAIT   -                   
+tcp6       0      0 127.0.0.1:8080          127.0.0.1:52746         TIME_WAIT   -                   
+tcp6       0      0 127.0.0.1:8080          127.0.0.1:52740         TIME_WAIT   -         # 查看8080端口占用情况          
+[root@idp10-server1-local webapps]# lsof -i tcp:8080
+COMMAND   PID USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+java    81694 root   47u  IPv6 1764690      0t0  TCP *:webcache (LISTEN)
+# 解除占用
+[root@idp10-server1-local webapps]# kill -9 81694
+[root@idp10-server1-local webapps]# 
+[root@idp10-server1-local webapps]# 
+[root@idp10-server1-local webapps]# netstat -anp |grep 8080
+tcp6       0      0 127.0.0.1:8080          127.0.0.1:52790         TIME_WAIT   -                  
+tcp6       0      0 127.0.0.1:8080          127.0.0.1:52792         TIME_WAIT   -
+
+```
+
+
+
