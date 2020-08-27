@@ -1,5 +1,5 @@
 ---
-title:动态代理是如何实现的？JDK Proxy 和 CGLib 有什么区别？
+title: 动态代理是如何实现的？JDK Proxy 和 CGLib 有什么区别？
 date: 2020-08-27 23:16:23
 tags: Java
 categories: 
