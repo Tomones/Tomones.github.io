@@ -5,6 +5,7 @@ tags: Java
 categories: 
 - Java
 ---
+
 ## synchronized 和 ReentrantLock 的实现原理是什么？它们有什么区别？
 在 JDK 1.5 之前共享对象的协调机制只有 synchronized 和 volatile，在 JDK 1.5 中增加了新的机制 ReentrantLock，该机制的诞生并不是为了替代 synchronized，而是在 synchronized 不适用的情况下，提供一种可以选择的高级功能。
 
