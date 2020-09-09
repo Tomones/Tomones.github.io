@@ -107,5 +107,15 @@ tcp6       0      0 127.0.0.1:8080          127.0.0.1:52792         TIME_WAIT   
 
 ```
 
+### MongoDB 数据库备份命令
+
+```shell
+# 备份test库
+mongodump -h 10.0.0.152:27017 -uroot -proot --authenticationDatabase admin  -d test -o /home/mongod/backup/
+
+# 恢复test库
+mongorestore -h 10.0.0.152:27017 -uroot -proot --authenticationDatabase admin -d test /home/mongod/backup/test/
+```
+
 
 
