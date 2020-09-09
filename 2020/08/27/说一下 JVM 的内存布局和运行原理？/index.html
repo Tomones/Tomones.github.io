@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>说一下 JVM 的内存布局和运行原理？ | 凌虚阁</title><meta name="description" content="第23讲：说一下 JVM 的内存布局和运行原理？JVM（Java Virtual Machine，Java 虚拟机）顾名思义就是用来执行 Java 程序的“虚拟主机”，实际的工作是将编译的 class 代码（字节码）翻译成底层操作系统可以运行的机器码并且进行调用执行，这也是 Java 程序能够“一次编写，到处运行”的原因（因为它会根据特定的操作系统生成对应的操作指令）。JVM 的功能很强大，像 J"><meta name="keywords" content="Java"><meta name="author" content="GuoTao"><meta name="copyright" content="GuoTao"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://tomones.github.io/2020/08/27/%E8%AF%B4%E4%B8%80%E4%B8%8B%20JVM%20%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E5%92%8C%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%9F/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="说一下 JVM 的内存布局和运行原理？"><meta property="og:url" content="https://tomones.github.io/2020/08/27/%E8%AF%B4%E4%B8%80%E4%B8%8B%20JVM%20%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E5%92%8C%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%9F/"><meta property="og:site_name" content="凌虚阁"><meta property="og:description" content="第23讲：说一下 JVM 的内存布局和运行原理？JVM（Java Virtual Machine，Java 虚拟机）顾名思义就是用来执行 Java 程序的“虚拟主机”，实际的工作是将编译的 class 代码（字节码）翻译成底层操作系统可以运行的机器码并且进行调用执行，这也是 Java 程序能够“一次编写，到处运行”的原因（因为它会根据特定的操作系统生成对应的操作指令）。JVM 的功能很强大，像 J"><meta property="og:image" content="http://cdn.andiycc.com/fengmian.jpg"><meta property="article:published_time" content="2020-08-27T15:16:23.000Z"><meta property="article:modified_time" content="2020-09-09T14:29:42.833Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="prev" title="详解 ThreadPoolExecutor 的参数含义及源码执行流程？" href="https://tomones.github.io/2020/08/27/%E8%AF%A6%E8%A7%A3%20ThreadPoolExecutor%20%E7%9A%84%E5%8F%82%E6%95%B0%E5%90%AB%E4%B9%89%E5%8F%8A%E6%BA%90%E7%A0%81%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%EF%BC%9F/"><link rel="next" title="谈谈你对锁的理解？如何手动模拟一个死锁？" href="https://tomones.github.io/2020/08/27/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9%E9%94%81%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9F%E5%A6%82%E4%BD%95%E6%89%8B%E5%8A%A8%E6%A8%A1%E6%8B%9F%E4%B8%80%E4%B8%AA%E6%AD%BB%E9%94%81%EF%BC%9F/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="凌虚阁" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="http://cdn.andiycc.com/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">45</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">9</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><span> 娱乐</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第23讲：说一下-JVM-的内存布局和运行原理？"><span class="toc-number">1.</span> <span class="toc-text">第23讲：说一下 JVM 的内存布局和运行原理？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#典型回答"><span class="toc-number">1.1.</span> <span class="toc-text">典型回答</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-堆"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. 堆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-方法区"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 方法区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-程序计数器"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. 程序计数器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-虚拟机栈"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. 虚拟机栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-本地方法栈"><span class="toc-number">1.1.5.</span> <span class="toc-text">5. 本地方法栈</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#考点分析"><span class="toc-number">1.2.</span> <span class="toc-text">考点分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#知识扩展——类加载"><span class="toc-number">1.3.</span> <span class="toc-text">知识扩展——类加载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-加载阶段"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 加载阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-验证阶段"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 验证阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-准备阶段"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 准备阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-解析阶段"><span class="toc-number">1.3.4.</span> <span class="toc-text">4. 解析阶段</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-初始化"><span class="toc-number">1.3.5.</span> <span class="toc-text">5. 初始化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">1.4.</span> <span class="toc-text">小结</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(http://cdn.andiycc.com/fengmian.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">凌虚阁</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><span> 娱乐</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">说一下 JVM 的内存布局和运行原理？</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-08-27 23:16:23"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2020-08-27</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-09-09 22:29:42"><i class="fas fa-history fa-fw"></i> 更新于 2020-09-09</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/Java%E8%BF%9B%E9%98%B6/">Java进阶</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">2.8k</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 8 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="第23讲：说一下-JVM-的内存布局和运行原理？"><a href="#第23讲：说一下-JVM-的内存布局和运行原理？" class="headerlink" title="第23讲：说一下 JVM 的内存布局和运行原理？"></a>第23讲：说一下 JVM 的内存布局和运行原理？</h2><p>JVM（Java Virtual Machine，Java 虚拟机）顾名思义就是用来执行 Java 程序的“虚拟主机”，实际的工作是将编译的 class 代码（字节码）翻译成底层操作系统可以运行的机器码并且进行调用执行，这也是 Java 程序能够“<strong>一次编写，到处运行</strong>”的原因（因为它会根据特定的操作系统生成对应的操作指令）。JVM 的功能很强大，像 Java 对象的创建、使用和销毁，还有垃圾回收以及某些高级的性能优化，例如，热点代码检测等功能都是在 JVM 中进行的。因为 JVM 是 Java 程序能够运行的根本，因此掌握 JVM 也已经成了一个合格 Java 程序员必备的技能。</p>
+<p>我们本课时的面试题是，说一下 JVM 的内存布局和运行原理？</p>
+<h3 id="典型回答"><a href="#典型回答" class="headerlink" title="典型回答"></a>典型回答</h3><p>JVM 的种类有很多，比如 HotSpot 虚拟机，它是 Sun/OracleJDK 和 OpenJDK 中的默认 JVM，也是目前使用范围最广的 JVM。我们常说的 JVM 其实泛指的是 HotSpot 虚拟机，还有曾经与 HotSpot 齐名为“三大商业 JVM”的 JRockit 和 IBM J9 虚拟机。但无论是什么类型的虚拟机都必须遵守 Oracle 官方发布的《Java虚拟机规范》，它是 Java 领域最权威最重要的著作之一，用于规范 JVM 的一些具体“行为”。</p>
+<p>同样对于 JVM 的内存布局也一样，根据《Java虚拟机规范》的规定，JVM 的内存布局分为以下几个部分：</p>
+<p><img src= "/img/loading.gif" data-src="https://s0.lgstatic.com/i/image/M00/12/FE/CgqCHl7ORYeAWLv7AABpB4-Dxgc707.png" alt="image (http://cdn.andiycc.com/blog_img/CgqCHl7ORYeAWLv7AABpB4-Dxgc707.png).png"></p>
+<p>以上 5 个内存区域的主要用途如下。</p>
+<h4 id="1-堆"><a href="#1-堆" class="headerlink" title="1. 堆"></a>1. 堆</h4><p><strong>堆（Java Heap）</strong> 也叫 Java 堆或者是 GC 堆，它是一个线程共享的内存区域，也是 JVM 中占用内存最大的一块区域，Java 中所有的对象都存储在这里。</p>
+<p>《Java虚拟机规范》对 Java 堆的描述是：“所有的对象实例以及数组都应当在堆上分配”。但这在技术日益发展的今天已经有点不那么“准确”了，比如 JIT（Just In Time Compilation，即时编译 ）优化中的逃逸分析，使得变量可以直接在栈上被分配。</p>
+<p>当对象或者是变量在方法中被创建之后，其指针可能被线程所引用，而这个对象就被称作<strong>指针逃逸</strong>或者是<strong>引用逃逸</strong>。</p>
+<p>比如以下代码中的 sb 对象的逃逸：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> StringBuffer <span class="title">createString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">    sb.append(<span class="string">"Java"</span>);</span><br><span class="line">    <span class="keyword">return</span> sb;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>sb 虽然是一个局部变量，但上述代码可以看出，它被直接 return 出去了，因此可能被赋值给了其他变量，并且被完全修改，于是此 sb 就逃逸到了方法外部。<br>想要 sb 变量不逃逸也很简单，可以改为如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">createString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">    sb.append(<span class="string">"Java"</span>);</span><br><span class="line">    <span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小贴士：通过逃逸分析可以让变量或者是对象直接在栈上分配，从而极大地降低了垃圾回收的次数，以及堆分配对象的压力，进而提高了程序的整体运行效率。</p>
+</blockquote>
+<p>回到主题，堆大小的值可通过 -Xms 和 -Xmx 来设置（设置最小值和最大值），当堆超过最大值时就会抛出 OOM（OutOfMemoryError）异常。</p>
+<h4 id="2-方法区"><a href="#2-方法区" class="headerlink" title="2. 方法区"></a>2. 方法区</h4><p><strong>方法区（Method Area）</strong> 也被称为非堆区，用于和“Java 堆”的概念进行区分，它也是线程共享的内存区域，用于存储已经被 JVM 加载的类型信息、常量、静态变量、代码缓存等数据。</p>
+<p>说到方法区有人可能会联想到“永久代”，但对于《Java虚拟机规范》来说并没有规定这样一个区域，同样它也只是 HotSpot 中特有的一个概念。这是因为 HotSpot 技术团队把垃圾收集器的分代设计扩展到方法区之后才有的一个概念，可以理解为 HotSpot 技术团队只是用永久代来实现方法区而已，但这会导致一个致命的问题，这样设计更容易造成内存溢出。因为永久代有 -XX：MaxPermSize（方法区分配的最大内存）的上限，即使不设置也会有默认的大小。例如，32 位操作系统中的 4GB 内存限制等，并且这样设计导致了部分的方法在不同类型的 Java 虚拟机下的表现也不同，比如 String::intern() 方法。所以在 JDK 1.7 时 HotSpot 虚拟机已经把原本放在永久代的字符串常量池和静态变量等移出了方法区，并且在 JDK 1.8 中完全废弃了永久代的概念。</p>
+<h4 id="3-程序计数器"><a href="#3-程序计数器" class="headerlink" title="3. 程序计数器"></a>3. 程序计数器</h4><p><strong>程序计数器（Program Counter Register）</strong> 线程独有一块很小的内存区域，保存当前线程所执行字节码的位置，包括正在执行的指令、跳转、分支、循环、异常处理等。</p>
+<h4 id="4-虚拟机栈"><a href="#4-虚拟机栈" class="headerlink" title="4. 虚拟机栈"></a>4. 虚拟机栈</h4><p>虚拟机栈也叫 Java 虚拟机栈（Java Virtual Machine Stack），和程序计数器相同它也是线程独享的，用来描述 Java 方法的执行，在每个方法被执行时就会同步创建一个栈帧，用来存储局部变量表、操作栈、动态链接、方法出口等信息。当调用方法时执行入栈，而方法返回时执行出栈。</p>
+<h4 id="5-本地方法栈"><a href="#5-本地方法栈" class="headerlink" title="5. 本地方法栈"></a>5. 本地方法栈</h4><p>本地方法栈（Native Method Stacks）与虚拟机栈类似，它是线程独享的，并且作用也和虚拟机栈类似。只不过虚拟机栈是为虚拟机中执行的 Java 方法服务的，而本地方法栈则是为虚拟机使用到的本地（Native）方法服务。</p>
+<blockquote>
+<p>小贴士：需要注意的是《Java虚拟机规范》只规定了有这么几个区域，但没有规定 JVM 的具体实现细节，因此对于不同的 JVM 来说，实现也是不同的。例如，“永久代”是 HotSpot 中的一个概念，而对于 JRockit 来说就没有这个概念。所以很多人说的 JDK 1.8 把永久代转移到了元空间，这其实只是 HotSpot 的实现，而非《Java虚拟机规范》的规定。</p>
+</blockquote>
+<p>JVM 的执行流程是，首先先把 Java 代码（.java）转化成字节码（.class），然后通过类加载器将字节码加载到内存中，所谓的内存也就是我们上面介绍的运行时数据区，但字节码并不是可以直接交给操作系统执行的机器码，而是一套 JVM 的指令集。这个时候需要使用特定的命令解析器也就是我们俗称的<strong>执行引擎（Execution Engine）</strong>将字节码翻译成可以被底层操作系统执行的指令再去执行，这样就实现了整个 Java 程序的运行，这也是 JVM 的整体执行流程。</p>
+<h3 id="考点分析"><a href="#考点分析" class="headerlink" title="考点分析"></a>考点分析</h3><p>JVM 的内存布局是一道必考的 Java 面试题，一般会作为 JVM 方面的第一道面试题出现，它也是中高级工程师必须掌握的一个知识点。和此知识点相关的面试题还有这些：类的加载分为几个阶段？每个阶段代表什么含义？加载了什么内容？</p>
+<h3 id="知识扩展——类加载"><a href="#知识扩展——类加载" class="headerlink" title="知识扩展——类加载"></a>知识扩展——类加载</h3><p>类的生命周期会经历以下 7 个阶段：</p>
+<ol>
+<li>加载阶段（Loading）</li>
+<li>验证阶段（Verification）</li>
+<li>准备阶段（Preparation）</li>
+<li>解析阶段（Resolution）</li>
+<li>初始化阶段（Initialization）</li>
+<li>使用阶段（Using）</li>
+<li>卸载阶段（Unloading）</li>
+</ol>
+<p>其中验证、准备、解析 3 个阶段统称为<strong>连接（Linking）</strong>，如下图所示：</p>
+<p><img src= "/img/loading.gif" data-src="https://s0.lgstatic.com/i/image/M00/12/FF/CgqCHl7ORbmAQusYAABWJmj1sg8743.png" alt="image (http://cdn.andiycc.com/blog_img/CgqCHl7ORbmAQusYAABWJmj1sg8743.png).png"></p>
+<p>我们平常所说的 JVM 类加载通常指的就是前五个阶段：加载、验证、准备、解析、初始化等，接下来我们分别来看看。</p>
+<h4 id="1-加载阶段"><a href="#1-加载阶段" class="headerlink" title="1. 加载阶段"></a>1. 加载阶段</h4><p>此阶段用于查到相应的类（通过类名进行查找）并将此类的字节流转换为方法区运行时的数据结构，然后再在内存中生成一个能代表此类的 java.lang.Class 对象，作为其他数据访问的入口。</p>
+<blockquote>
+<p>小贴士：需要注意的是加载阶段和连接阶段的部分动作有可能是交叉执行的，比如一部分字节码文件格式的验证，在加载阶段还未完成时就已经开始验证了。</p>
+</blockquote>
+<h4 id="2-验证阶段"><a href="#2-验证阶段" class="headerlink" title="2. 验证阶段"></a>2. 验证阶段</h4><p>此步骤主要是为了验证字节码的安全性，如果不做安全校验的话可能会载入非安全或有错误的字节码，从而导致系统崩溃，它是 JVM 自我保护的一项重要举措。</p>
+<p>验证的主要动作大概有以下几个：</p>
+<ul>
+<li><strong>文件格式\</strong>**校**<em>\</em>验**包括常量池中的常量类型、Class 文件的各个部分是否被删除或被追加了其他信息等；</li>
+<li><strong>元数据\</strong>**校**<em>\</em>验**包括父类正确性校验（检查父类是否有被 final 修饰）、抽象类校验等；</li>
+<li><strong>字节码\</strong>**校**<em>\</em>验**，此步骤最为关键和复杂，主要用于校验程序中的语义是否合法且符合逻辑；</li>
+<li><strong>符号引用\</strong>**校**<em>\</em>验**，对类自身以外比如常量池中的各种符号引用的信息进行匹配性校验。</li>
+</ul>
+<h4 id="3-准备阶段"><a href="#3-准备阶段" class="headerlink" title="3. 准备阶段"></a>3. 准备阶段</h4><p>此阶段是用来初始化并为类中定义的静态变量分配内存的，这些静态变量会被分配到方法区上。</p>
+<p>HotSpot 虚拟机在 JDK 1.7 之前都在方法区，而 JDK 1.8 之后此变量会随着类对象一起存放到 Java 堆中。</p>
+<h4 id="4-解析阶段"><a href="#4-解析阶段" class="headerlink" title="4. 解析阶段"></a>4. 解析阶段</h4><p>此阶段主要是用来解析类、接口、字段及方法的，解析时会把符号引用替换成直接引用。</p>
+<p>所谓的符号引用是指以一组符号来描述所引用的目标，符号可以是任何形式的字面量，只要使用时能无歧义地定位到目标即可；而直接引用是可以直接指向目标的指针、相对偏移量或者是一个能间接定位到目标的句柄。</p>
+<p>符号引用和直接引用有一个重要的区别：使用符号引用时被引用的目标不一定已经加载到内存中；而使用直接引用时，引用的目标必定已经存在虚拟机的内存中了。</p>
+<h4 id="5-初始化"><a href="#5-初始化" class="headerlink" title="5. 初始化"></a>5. 初始化</h4><p>初始化阶段 JVM 就正式开始执行类中编写的 Java 业务代码了。到这一步骤之后，类的加载过程就算正式完成了。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>本课时讲了 JVM 的内存布局主要分为：堆、方法区、程序计数器、虚拟机栈和本地方法栈，并讲了 JVM 的执行流程，先把 Java 代码编译成字节码，再把字节码加载到运行时数据区；然后交给 JVM 引擎把字节码翻译为操作系统可以执行的指令进行执行；最后还讲了类加载的 5 个阶段：加载、验证、准备、解析和初始化。</p>
+<p>00:00</p>
+<p> Java 源码剖析 34 讲</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">GuoTao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tomones.github.io/2020/08/27/%E8%AF%B4%E4%B8%80%E4%B8%8B%20JVM%20%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E5%92%8C%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%9F/">https://tomones.github.io/2020/08/27/%E8%AF%B4%E4%B8%80%E4%B8%8B%20JVM%20%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E5%92%8C%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%9F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tomones.github.io" target="_blank">凌虚阁</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post_share"><div class="addthis_inline_share_toolbox"></div><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=null" async="async"></script></div></div><div class="post-reward"><button class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="http://cdn.andiycc.com/wechat.png" alt="微信" onclick="window.open('http://cdn.andiycc.com/wechat.png')"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="http://cdn.andiycc.com/alipay.png" alt="支付宝" onclick="window.open('http://cdn.andiycc.com/alipay.png')"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></button></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/08/27/%E8%AF%A6%E8%A7%A3%20ThreadPoolExecutor%20%E7%9A%84%E5%8F%82%E6%95%B0%E5%90%AB%E4%B9%89%E5%8F%8A%E6%BA%90%E7%A0%81%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%EF%BC%9F/"><img class="prev-cover" data-src="http://cdn.andiycc.com/fengmian.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">详解 ThreadPoolExecutor 的参数含义及源码执行流程？</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/27/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9%E9%94%81%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9F%E5%A6%82%E4%BD%95%E6%89%8B%E5%8A%A8%E6%A8%A1%E6%8B%9F%E4%B8%80%E4%B8%AA%E6%AD%BB%E9%94%81%EF%BC%9F/"><img class="next-cover" data-src="http://cdn.andiycc.com/fengmian.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">谈谈你对锁的理解？如何手动模拟一个死锁？</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/08/27/Docker 有什么优点？使用时需要注意什么问题？/" title="Docker 有什么优点？使用时需要注意什么问题？"><img class="relatedPosts_cover" data-src="http://cdn.andiycc.com/fengmian.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-27</div><div class="relatedPosts_title">Docker 有什么优点？使用时需要注意什么问题？</div></div></a></div><div class="relatedPosts_item"><a href="/2020/08/27/HashMap 底层实现原理是什么？JDK8 做了哪些优化？/" title="HashMap 底层实现原理是什么？JDK8 做了哪些优化？"><img class="relatedPosts_cover" data-src="http://cdn.andiycc.com/fengmian.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-27</div><div class="relatedPosts_title">HashMap 底层实现原理是什么？JDK8 做了哪些优化？</div></div></a></div><div class="relatedPosts_item"><a href="/2020/05/30/Java-lang-NoClassdefFoundError-Could-Not-Initialize-Class-Sun-AWT-X11-XtoolKit异常解决/" title="Java.lang.NoClassdefFoundError: Could Not Initialize Class Sun.AWT.X11.XtoolKit异常解决"><img class="relatedPosts_cover" data-src="http://cdn.andiycc.com/fengmian.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-30</div><div class="relatedPosts_title">Java.lang.NoClassdefFoundError: Could Not Initialize Class Sun.AWT.X11.XtoolKit异常解决</div></div></a></div><div class="relatedPosts_item"><a href="/2020/05/30/Java8新特性总结/" title="Java8新特性总结"><img class="relatedPosts_cover" data-src="http://cdn.andiycc.com/fengmian.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-30</div><div class="relatedPosts_title">Java8新特性总结</div></div></a></div><div class="relatedPosts_item"><a href="/2020/05/30/Java中15种锁的介绍：公平锁，可重入锁，独享锁，互斥锁，乐观锁，分段锁，自旋锁等等/" title="Java中15种锁的介绍：公平锁，可重入锁，独享锁，互斥锁，乐观锁，分段锁，自旋锁等等"><img class="relatedPosts_cover" data-src="http://cdn.andiycc.com/fengmian.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-30</div><div class="relatedPosts_title">Java中15种锁的介绍：公平锁，可重入锁，独享锁，互斥锁，乐观锁，分段锁，自旋锁等等</div></div></a></div><div class="relatedPosts_item"><a href="/2020/08/30/MQ 有什么作用？你都用过哪些 MQ 中间件？/" title="MQ 有什么作用？你都用过哪些 MQ 中间件？"><img class="relatedPosts_cover" data-src="http://cdn.andiycc.com/fengmian.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-30</div><div class="relatedPosts_title">MQ 有什么作用？你都用过哪些 MQ 中间件？</div></div></a></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By GuoTao</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">簡</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/js/third-party/click_heart.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>

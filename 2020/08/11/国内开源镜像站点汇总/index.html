@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>国内开源镜像站点汇总 | 凌虚阁</title><meta name="description" content="国内开源镜像站点汇总一、站点版（一）、企业站 网易：https:&#x2F;&#x2F;mirrors.163.com&#x2F; 搜狐：http:&#x2F;&#x2F;mirrors.sohu.com&#x2F;（Ubuntu旧发行版同步被冻结，不同步Ubuntu新发行版，Ubuntu源同步正常） 阿里云：https:&#x2F;&#x2F;opsx.alibaba.com&#x2F;mirror（部分镜像同步延迟超过1天） 首都在线科技股份有限公司（英文名Capital Onli"><meta name="keywords" content="工具"><meta name="author" content="GuoTao"><meta name="copyright" content="GuoTao"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://tomones.github.io/2020/08/11/%E5%9B%BD%E5%86%85%E5%BC%80%E6%BA%90%E9%95%9C%E5%83%8F%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="国内开源镜像站点汇总"><meta property="og:url" content="https://tomones.github.io/2020/08/11/%E5%9B%BD%E5%86%85%E5%BC%80%E6%BA%90%E9%95%9C%E5%83%8F%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/"><meta property="og:site_name" content="凌虚阁"><meta property="og:description" content="国内开源镜像站点汇总一、站点版（一）、企业站 网易：https:&#x2F;&#x2F;mirrors.163.com&#x2F; 搜狐：http:&#x2F;&#x2F;mirrors.sohu.com&#x2F;（Ubuntu旧发行版同步被冻结，不同步Ubuntu新发行版，Ubuntu源同步正常） 阿里云：https:&#x2F;&#x2F;opsx.alibaba.com&#x2F;mirror（部分镜像同步延迟超过1天） 首都在线科技股份有限公司（英文名Capital Onli"><meta property="og:image" content="http://cdn.andiycc.com/fengmian.jpg"><meta property="article:published_time" content="2020-08-11T06:10:39.000Z"><meta property="article:modified_time" content="2020-09-09T14:29:42.829Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="prev" title="谈谈你对锁的理解？如何手动模拟一个死锁？" href="https://tomones.github.io/2020/08/27/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9%E9%94%81%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9F%E5%A6%82%E4%BD%95%E6%89%8B%E5%8A%A8%E6%A8%A1%E6%8B%9F%E4%B8%80%E4%B8%AA%E6%AD%BB%E9%94%81%EF%BC%9F/"><link rel="next" title="计算机进制知识" href="https://tomones.github.io/2020/08/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BF%9B%E5%88%B6%E7%9F%A5%E8%AF%86/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="凌虚阁" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="http://cdn.andiycc.com/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">45</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">9</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><span> 娱乐</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#国内开源镜像站点汇总"><span class="toc-number">1.</span> <span class="toc-text">国内开源镜像站点汇总</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、站点版"><span class="toc-number">1.1.</span> <span class="toc-text">一、站点版</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（一）、企业站"><span class="toc-number">1.1.1.</span> <span class="toc-text">（一）、企业站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（二）、教育站"><span class="toc-number">1.1.2.</span> <span class="toc-text">（二）、教育站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（三）、其他"><span class="toc-number">1.1.3.</span> <span class="toc-text">（三）、其他</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（四）、确认关闭的镜像站"><span class="toc-number">1.1.4.</span> <span class="toc-text">（四）、确认关闭的镜像站</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、软件版"><span class="toc-number">1.2.</span> <span class="toc-text">二、软件版</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（一）、操作系统类"><span class="toc-number">1.2.1.</span> <span class="toc-text">（一）、操作系统类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（二）、服务器类"><span class="toc-number">1.2.2.</span> <span class="toc-text">（二）、服务器类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（三）、开发工具类"><span class="toc-number">1.2.3.</span> <span class="toc-text">（三）、开发工具类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、官方镜像列表状态地址"><span class="toc-number">1.3.</span> <span class="toc-text">三、官方镜像列表状态地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、几个官方cn子域解析"><span class="toc-number">1.4.</span> <span class="toc-text">四、几个官方cn子域解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、镜像站搭建参考"><span class="toc-number">1.5.</span> <span class="toc-text">五、镜像站搭建参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、镜像站异动情况"><span class="toc-number">1.6.</span> <span class="toc-text">六、镜像站异动情况</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(http://cdn.andiycc.com/fengmian.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">凌虚阁</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><span> 娱乐</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">国内开源镜像站点汇总</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-08-11 14:10:39"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2020-08-11</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-09-09 22:29:42"><i class="fas fa-history fa-fw"></i> 更新于 2020-09-09</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E8%B5%84%E6%BA%90%E5%88%86%E4%BA%AB/">资源分享</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">3.4k</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 14 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="国内开源镜像站点汇总"><a href="#国内开源镜像站点汇总" class="headerlink" title="国内开源镜像站点汇总"></a>国内开源镜像站点汇总</h1><h2 id="一、站点版"><a href="#一、站点版" class="headerlink" title="一、站点版"></a>一、站点版</h2><h3 id="（一）、企业站"><a href="#（一）、企业站" class="headerlink" title="（一）、企业站"></a>（一）、企业站</h3><ol>
+<li>网易：<a href="https://mirrors.163.com/" target="_blank" rel="noopener">https://mirrors.163.com/</a></li>
+<li>搜狐：<a href="http://mirrors.sohu.com/" target="_blank" rel="noopener">http://mirrors.sohu.com/</a>（Ubuntu旧发行版同步被冻结，不同步Ubuntu新发行版，Ubuntu源同步正常）</li>
+<li>阿里云：<a href="https://opsx.alibaba.com/mirror" target="_blank" rel="noopener">https://opsx.alibaba.com/mirror</a>（部分镜像同步延迟超过1天）</li>
+<li>首都在线科技股份有限公司（英文名Capital Online Data Service）：<a href="http://mirrors.yun-idc.com/" target="_blank" rel="noopener">http://mirrors.yun-idc.com/</a></li>
+<li>华为云：<a href="https://mirrors.huaweicloud.com/" target="_blank" rel="noopener">https://mirrors.huaweicloud.com/</a></li>
+<li>腾讯云：<a href="https://mirrors.cloud.tencent.com/" target="_blank" rel="noopener">https://mirrors.cloud.tencent.com/</a></li>
+<li>平安云：<a href="https://mirrors.pinganyun.com/" target="_blank" rel="noopener">https://mirrors.pinganyun.com/</a></li>
+</ol>
+<h3 id="（二）、教育站"><a href="#（二）、教育站" class="headerlink" title="（二）、教育站"></a>（二）、教育站</h3><ol>
+<li>中国科技大学：<a href="https://mirrors.ustc.edu.cn/" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/</a>（当前已用容量估计：21.32T）</li>
+<li>清华大学：<a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/</a>（当前已用容量估计：9.8T）</li>
+<li>北京外国语大学：<a href="http://mirrors.bfsu.edu.cn/" target="_blank" rel="noopener">http://mirrors.bfsu.edu.cn/</a></li>
+<li>北京交通大学：<a href="https://mirror.bjtu.edu.cn/" target="_blank" rel="noopener">https://mirror.bjtu.edu.cn/</a></li>
+<li>北京理工大学：<a href="http://mirror.bit.edu.cn/web/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/web/</a></li>
+<li>兰州大学：<a href="http://mirror.lzu.edu.cn/" target="_blank" rel="noopener">http://mirror.lzu.edu.cn/</a></li>
+<li>上海交通大学：<a href="http://ftp.sjtu.edu.cn/" target="_blank" rel="noopener">http://ftp.sjtu.edu.cn/</a>，<a href="ftp://ftp.sjtu.edu.cn/">ftp://ftp.sjtu.edu.cn/</a>（华东南地区教育网出口）</li>
+<li>大连东软信息学院：<a href="http://mirrors.neusoft.edu.cn/" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn/</a>（当前已用容量估计：2.5T）</li>
+<li>东北大学：<a href="http://mirror.neu.edu.cn/" target="_blank" rel="noopener">http://mirror.neu.edu.cn/</a>（东北地区教育网出口）</li>
+<li>浙江大学：<a href="http://mirrors.zju.edu.cn/" target="_blank" rel="noopener">http://mirrors.zju.edu.cn/</a></li>
+<li>厦门大学：<a href="http://mirrors.xmu.edu.cn/" target="_blank" rel="noopener">http://mirrors.xmu.edu.cn/</a></li>
+<li>中山大学：<a href="http://mirror.sysu.edu.cn/" target="_blank" rel="noopener">http://mirror.sysu.edu.cn/</a></li>
+<li>重庆大学：<a href="http://mirrors.cqu.edu.cn/" target="_blank" rel="noopener">http://mirrors.cqu.edu.cn/</a>（当前已用容量估计：3.93T）</li>
+<li>南阳理工学院：<a href="http://mirror.nyist.edu.cn/" target="_blank" rel="noopener">http://mirror.nyist.edu.cn/</a></li>
+<li>中科院高能物理研究所：<a href="http://mirror.ihep.ac.cn/" target="_blank" rel="noopener">http://mirror.ihep.ac.cn/</a>，<a href="http://mir-cern.ihep.ac.cn/" target="_blank" rel="noopener">http://mir-cern.ihep.ac.cn/</a></li>
+<li>电子科技大学凝聚网络安全工作室：<a href="http://mirrors.cnssuestc.org/" target="_blank" rel="noopener">http://mirrors.cnssuestc.org/</a></li>
+<li>西北农林科技大学：<a href="https://mirrors.nwafu.edu.cn/" target="_blank" rel="noopener">https://mirrors.nwafu.edu.cn/</a>，<a href="https://mirrors.nwsuaf.edu.cn/" target="_blank" rel="noopener">https://mirrors.nwsuaf.edu.cn/</a></li>
+<li>郑州大学：<a href="https://mirrors.zzu.edu.cn/" target="_blank" rel="noopener">https://mirrors.zzu.edu.cn/</a></li>
+<li>南京信息工程大学：<a href="http://mirrors.duohuo.org/" target="_blank" rel="noopener">http://mirrors.duohuo.org/</a></li>
+<li>华中科技大学：<a href="http://mirror.hust.edu.cn/" target="_blank" rel="noopener">http://mirror.hust.edu.cn/</a>（华中地区教育网出口，当前已用容量估计：4.83T）</li>
+<li>重庆邮电大学：<a href="http://mirrors.cqupt.edu.cn/" target="_blank" rel="noopener">http://mirrors.cqupt.edu.cn/</a>（当前已用容量估计：1.68T）</li>
+<li>大连理工大学：<a href="http://mirror.dlut.edu.cn/" target="_blank" rel="noopener">http://mirror.dlut.edu.cn/</a>（大连地区教育网出口）</li>
+<li>江苏开放大学：<a href="http://mirrors.jstvu.edu.cn/" target="_blank" rel="noopener">http://mirrors.jstvu.edu.cn/</a></li>
+<li>山东女子学院：<a href="http://mirrors.sdwu.edu.cn/" target="_blank" rel="noopener">http://mirrors.sdwu.edu.cn/</a></li>
+<li>西安交通大学：<a href="https://mirrors.xjtu.edu.cn/" target="_blank" rel="noopener">https://mirrors.xjtu.edu.cn/</a>（西北地区教育网出口）</li>
+<li>西安电子科技大学：<a href="https://linux.xidian.edu.cn/mirrors/" target="_blank" rel="noopener">https://linux.xidian.edu.cn/mirrors/</a>（镜像仅供校内使用）</li>
+<li>南开大学：<a href="http://ftp.nankai.edu.cn/" target="_blank" rel="noopener">http://ftp.nankai.edu.cn/</a>（镜像仅供校内使用）</li>
+<li>天津大学：<a href="http://mirror.tju.edu.cn" target="_blank" rel="noopener">http://mirror.tju.edu.cn</a>（镜像仅供校内使用，另一域名为zyrj.org）</li>
+<li>南京师范大学：<a href="http://mirrors.njnu.edu.cn/" target="_blank" rel="noopener">http://mirrors.njnu.edu.cn/</a>（镜像仅供校内使用）</li>
+<li>电子科技大学：<a href="http://ubuntu.uestc.edu.cn/" target="_blank" rel="noopener">http://ubuntu.uestc.edu.cn/</a>（西南地区教育网出口西南，首页近一年无人维护，内容可访问）</li>
+<li>中央音乐学院：<a href="http://fundawang.lcuc.org.cn/" target="_blank" rel="noopener">http://fundawang.lcuc.org.cn/</a>（镜像仅供校内使用）</li>
+<li>云南大学：<a href="http://mirrors.ynuosa.org/index/" target="_blank" rel="noopener">http://mirrors.ynuosa.org/index/</a>（镜像站列表）,<a href="http://pypi.opensource.ynu.edu.cn/" target="_blank" rel="noopener">http://pypi.opensource.ynu.edu.cn/</a>（收录pypi）</li>
+<li>上海科技大学：<a href="https://mirrors-wan.geekpie.org/" target="_blank" rel="noopener">https://mirrors-wan.geekpie.org/</a></li>
+<li>南京信息职业技术学院：<a href="https://mirrors.njcit.cn/" target="_blank" rel="noopener">https://mirrors.njcit.cn/</a></li>
+<li>上海交通大学SJTUG：<del><a href="http://mirrors.sjtug.org/" target="_blank" rel="noopener">http://mirrors.sjtug.org/</a></del>（已关闭） <a href="https://mirrors.sjtug.sjtu.edu.cn/" target="_blank" rel="noopener">https://mirrors.sjtug.sjtu.edu.cn/</a></li>
+<li>南京邮电大学通达学院：<a href="http://mirrors.tdsast.cn/" target="_blank" rel="noopener">http://mirrors.tdsast.cn/</a></li>
+<li>燕山大学：<a href="http://mirror.pret-page.com/" target="_blank" rel="noopener">http://mirror.pret-page.com/</a></li>
+<li>南京邮电大学：<a href="http://mirrors.njupt.edu.cn/" target="_blank" rel="noopener">http://mirrors.njupt.edu.cn/</a></li>
+<li>南京大学：<a href="http://mirrors.nju.edu.cn/" target="_blank" rel="noopener">http://mirrors.nju.edu.cn/</a></li>
+<li>上海大学：<a href="https://mirrors.shu.edu.cn/" target="_blank" rel="noopener">https://mirrors.shu.edu.cn/</a></li>
+<li>青岛科技大学：<a href="http://mirrors.qust.edu.cn/" target="_blank" rel="noopener">http://mirrors.qust.edu.cn/</a>（镜像仅供校内使用）</li>
+<li>同济大学：<a href="https://mirrors.tongji.edu.cn/" target="_blank" rel="noopener">https://mirrors.tongji.edu.cn/</a></li>
+<li>华南农业大学：<a href="https://mirrors.scau.edu.cn/" target="_blank" rel="noopener">https://mirrors.scau.edu.cn/</a></li>
+<li>东莞理工学院：<a href="https://mirrors.dgut.edu.cn/" target="_blank" rel="noopener">https://mirrors.dgut.edu.cn/</a></li>
+</ol>
+<h3 id="（三）、其他"><a href="#（三）、其他" class="headerlink" title="（三）、其他"></a>（三）、其他</h3><ol>
+<li>中国电信天翼云：<a href="http://mirrors.ctyun.cn/" target="_blank" rel="noopener">http://mirrors.ctyun.cn/</a></li>
+<li>常州贝特康姆软件技术有限公司(公云PubYun)：<a href="http://centos.bitcomm.cn/" target="_blank" rel="noopener">http://centos.bitcomm.cn/</a>，<a href="http://mirrors.pubyun.com/" target="_blank" rel="noopener">http://mirrors.pubyun.com/</a>（当前已用容量估计：2.3T）</li>
+<li>开源镜像文件搜索：<a href="http://mirrors.org.cn/" target="_blank" rel="noopener">http://mirrors.org.cn/</a>（只能搜索和浏览，不能下载）</li>
+<li>Linux运维派：<a href="https://mirrors.skyshe.cn/" target="_blank" rel="noopener">https://mirrors.skyshe.cn/</a>（使用阿里云服务器，界面使用浙江大学的模板，首页维护，内容可访问）</li>
+<li>北京鹏博士宽带：<a href="http://mirrors.btte.net/" target="_blank" rel="noopener">http://mirrors.btte.net/</a>（只收录CentOS）</li>
+<li>Fayea工作室：<a href="http://apache.fayea.com/" target="_blank" rel="noopener">http://apache.fayea.com/</a>（只收录Apache镜像，当前已用容量估计：120GB）</li>
+<li>豆瓣pypi：<a href="http://pypi.doubanio.com/" target="_blank" rel="noopener">http://pypi.doubanio.com/</a>，<a href="https://pypi.doubanio.com/" target="_blank" rel="noopener">https://pypi.doubanio.com/</a></li>
+<li>v2ex的pypi：<a href="http://pypi.v2ex.com/" target="_blank" rel="noopener">http://pypi.v2ex.com/</a>（首页有https异常NET::ERR_CERT_COMMON_NAME_INVALID）</li>
+<li>淘宝NPM：<a href="https://npm.taobao.org/" target="_blank" rel="noopener">https://npm.taobao.org/</a></li>
+<li>Ruby China的RubyGems：<a href="https://gems.ruby-china.org/" target="_blank" rel="noopener">https://gems.ruby-china.org/</a></li>
+<li>淘宝TAEMaven仓库镜像：<a href="http://mvnrepo.tae.taobao.com/content/groups/public/" target="_blank" rel="noopener">http://mvnrepo.tae.taobao.com/content/groups/public/</a></li>
+<li>阿里云Maven仓库镜像：<a href="http://maven.aliyun.com/nexus/content/groups/public" target="_blank" rel="noopener">http://maven.aliyun.com/nexus/content/groups/public</a></li>
+<li>阿里云Jcenter仓库镜像：<a href="http://maven.aliyun.com/nexus/content/repositories/jcenter/" target="_blank" rel="noopener">http://maven.aliyun.com/nexus/content/repositories/jcenter/</a></li>
+<li>LinuxEye：<a href="http://mirrors.linuxeye.com/" target="_blank" rel="noopener">http://mirrors.linuxeye.com/</a></li>
+<li>移动云镜像站：<a href="http://mirrors.bclinux.org/" target="_blank" rel="noopener">http://mirrors.bclinux.org/</a></li>
+<li>Cloud-Stack镜像站：<a href="http://mirrors.cloudstack-china.com/" target="_blank" rel="noopener">http://mirrors.cloudstack-china.com/</a></li>
+<li>cn99(常州贝特康姆旗下)：<a href="http://mirrors.cn99.com/" target="_blank" rel="noopener">http://mirrors.cn99.com/</a></li>
+<li>龙芯开源社区：<a href="http://mirrors.loongnix.org/" target="_blank" rel="noopener">http://mirrors.loongnix.org/</a>（只收录龙芯镜像）</li>
+<li>黔东南开源镜像站：<a href="https://mirrors.gzqdn.org/" target="_blank" rel="noopener">https://mirrors.gzqdn.org/</a>（https证书过期，没有设置定时更新脚本）</li>
+<li>联创团队：<a href="https://mirrors.hustunique.com/" target="_blank" rel="noopener">https://mirrors.hustunique.com/</a></li>
+<li>英荔教育：<a href="https://mirrors.e-ducation.cn/" target="_blank" rel="noopener">https://mirrors.e-ducation.cn/</a></li>
+</ol>
+<h3 id="（四）、确认关闭的镜像站"><a href="#（四）、确认关闭的镜像站" class="headerlink" title="（四）、确认关闭的镜像站"></a>（四）、确认关闭的镜像站</h3><ol>
+<li>北京航空航天大学：<a href="http://mirror.buaa.edu.cn/" target="_blank" rel="noopener">http://mirror.buaa.edu.cn/</a>，<a href="http://mirror.buaabt.cn/" target="_blank" rel="noopener">http://mirror.buaabt.cn/</a>（2012年建立，2014年关闭。镜像站关闭后不久，未来花园BT关闭。）</li>
+<li>青岛大学：<a href="http://mirror.qdu.edu.cn/" target="_blank" rel="noopener">http://mirror.qdu.edu.cn/</a>，<a href="https://mirror.osqdu.org/" target="_blank" rel="noopener">https://mirror.osqdu.org/</a>（2009年建立，2012年关闭，OSQDU主要管理人员无法继续维护）</li>
+<li>炼数成金Apache镜像：<a href="http://apache.dataguru.cn/" target="_blank" rel="noopener">http://apache.dataguru.cn/</a>（2016年关闭）</li>
+<li>猫扑Apache镜像：<a href="http://labs.mop.com/apache-mirror/" target="_blank" rel="noopener">http://labs.mop.com/apache-mirror/</a>（2016年关闭）</li>
+<li>人人网Apache镜像：<a href="http://labs.renren.com/apache-mirror/" target="_blank" rel="noopener">http://labs.renren.com/apache-mirror/</a>（2016年关闭）</li>
+<li>开源中国社区：<a href="http://mirrors.oss.org.cn/" target="_blank" rel="noopener">http://mirrors.oss.org.cn/</a>，<a href="http://mirrors.oschina.net/" target="_blank" rel="noopener">http://mirrors.oschina.net/</a>（2015年关闭）</li>
+<li>希网网络cn99：<a href="http://ubuntu.cn99.com/" target="_blank" rel="noopener">http://ubuntu.cn99.com/</a>（域名CNAME跳转到网易镜像,2016年9月重建）</li>
+<li>ZMX - IT技术交流论坛：<a href="http://mirrors.itzmx.com/" target="_blank" rel="noopener">http://mirrors.itzmx.com/</a>（域名跳转到清华镜像）</li>
+<li>中国科学院：<a href="http://www.opencas.org/mirrors/" target="_blank" rel="noopener">http://www.opencas.org/mirrors/</a>（2016年5月关闭）</li>
+<li>电子科技大学LUG镜像：<a href="http://mirrors.uestc.xyz/" target="_blank" rel="noopener">http://mirrors.uestc.xyz/</a>（2016年4月关闭）</li>
+<li>北京邮电大学：<a href="ftp://ftp.bupt.edu.cn/pub/mirror/">ftp://ftp.bupt.edu.cn/pub/mirror/</a>（2016年9月关闭，清空FTP）</li>
+<li>西南大学：<a href="http://mirrors.linuxstory.org/" target="_blank" rel="noopener">http://mirrors.linuxstory.org/</a>，<a href="http://mirrors.swu.edu.cn/" target="_blank" rel="noopener">http://mirrors.swu.edu.cn/</a>（2016年6月关闭）</li>
+<li>电子科技大学星辰工作室：<a href="http://mirrors.stuhome.net/" target="_blank" rel="noopener">http://mirrors.stuhome.net/</a>（2016年8月关闭）</li>
+<li>noc.im：<a href="http://mirrors.noc.im/" target="_blank" rel="noopener">http://mirrors.noc.im/</a>（2016年8月关闭）</li>
+<li>LUPA：<a href="http://mirror.lupaworld.com/" target="_blank" rel="noopener">http://mirror.lupaworld.com/</a>（2016年停止同步，无实质内容）</li>
+<li>远景：<a href="http://mirror.pcbeta.com/" target="_blank" rel="noopener">http://mirror.pcbeta.com/</a>（2016年6月关闭）</li>
+<li>山东理工大学：<a href="http://ruby.sdutlinux.org/" target="_blank" rel="noopener">http://ruby.sdutlinux.org/</a>（2016年9月关闭）</li>
+<li>新浪：<a href="http://mirrors.sina.cn/" target="_blank" rel="noopener">http://mirrors.sina.cn/</a>，<a href="http://mirrors.sina.com/" target="_blank" rel="noopener">http://mirrors.sina.com/</a>（只收录CentOS，2015年3月上线，2016年10月关闭）</li>
+<li>哈尔滨工业大学：<a href="http://run.hit.edu.cn/html/" target="_blank" rel="noopener">http://run.hit.edu.cn/html/</a>（2016年10月关闭）</li>
+<li>中国地质大学：<a href="http://mirrors.cug.edu.cn/" target="_blank" rel="noopener">http://mirrors.cug.edu.cn/</a>（2016年11月关闭）</li>
+<li>北京化工大学：<a href="http://ubuntu.buct.edu.cn/" target="_blank" rel="noopener">http://ubuntu.buct.edu.cn/</a>（2016年11月关闭）</li>
+<li>中国互联网络信息中心：<a href="http://mirrors.cnnic.cn/" target="_blank" rel="noopener">http://mirrors.cnnic.cn/</a>（只收录Apache镜像，2017年4月关闭，重定向到清华大学）</li>
+<li>腾讯Bugly：<a href="http://android-mirror.bugly.qq.com:8080/" target="_blank" rel="noopener">http://android-mirror.bugly.qq.com:8080/</a>（只收录Apache镜像，2017年4月关闭）</li>
+<li>海波网络镜像：<a href="http://mirrors.hypo.cn/" target="_blank" rel="noopener">http://mirrors.hypo.cn/</a>（2017年5月关闭）</li>
+<li>吉林大学：<a href="http://mirrors.jlu.edu.cn/" target="_blank" rel="noopener">http://mirrors.jlu.edu.cn/</a>（2017年10月关闭）</li>
+</ol>
+<h2 id="二、软件版"><a href="#二、软件版" class="headerlink" title="二、软件版"></a>二、软件版</h2><h3 id="（一）、操作系统类"><a href="#（一）、操作系统类" class="headerlink" title="（一）、操作系统类"></a>（一）、操作系统类</h3><ol>
+<li><p>Ubuntu</p>
+<ul>
+<li>网易：<a href="http://mirrors.163.com/ubuntu-releases/" target="_blank" rel="noopener">http://mirrors.163.com/ubuntu-releases/</a></li>
+<li>首都在线科技股份有限公司：<a href="http://mirrors.yun-idc.com/ubuntu-releases/" target="_blank" rel="noopener">http://mirrors.yun-idc.com/ubuntu-releases/</a></li>
+<li>阿里云：<a href="http://mirrors.aliyun.com/ubuntu-releases/" target="_blank" rel="noopener">http://mirrors.aliyun.com/ubuntu-releases/</a></li>
+</ul>
+</li>
+<li><p>Centos</p>
+<ul>
+<li>网易：<a href="http://mirrors.163.com/centos/" target="_blank" rel="noopener">http://mirrors.163.com/centos/</a></li>
+<li>搜狐：<a href="http://mirrors.sohu.com/centos/" target="_blank" rel="noopener">http://mirrors.sohu.com/centos/</a></li>
+<li>阿里云：<a href="http://mirrors.aliyun.com/centos/" target="_blank" rel="noopener">http://mirrors.aliyun.com/centos/</a></li>
+</ul>
+</li>
+<li><p>Centos-vault (Centos的旧发行版源)</p>
+<ul>
+<li>阿里云：<a href="http://mirrors.aliyun.com/centos-vault/" target="_blank" rel="noopener">http://mirrors.aliyun.com/centos-vault/</a></li>
+<li>清华大学：<a href="https://mirror.tuna.tsinghua.edu.cn/centos-vault/" target="_blank" rel="noopener">https://mirror.tuna.tsinghua.edu.cn/centos-vault/</a></li>
+<li>南京大学：<a href="http://mirrors.nju.edu.cn/centos-vault/" target="_blank" rel="noopener">http://mirrors.nju.edu.cn/centos-vault/</a></li>
+</ul>
+</li>
+<li><p>树莓派Raspbian</p>
+<ul>
+<li>搜狐：<a href="http://mirrors.sohu.com/raspbian/" target="_blank" rel="noopener">http://mirrors.sohu.com/raspbian/</a></li>
+<li>中国科技大学：<a href="http://mirrors.ustc.edu.cn/raspbian/" target="_blank" rel="noopener">http://mirrors.ustc.edu.cn/raspbian/</a></li>
+<li>浙江大学：<a href="http://mirrors.zju.edu.cn/raspbian/" target="_blank" rel="noopener">http://mirrors.zju.edu.cn/raspbian/</a></li>
+<li>重庆大学：<a href="http://mirrors.cqu.edu.cn/raspbian/" target="_blank" rel="noopener">http://mirrors.cqu.edu.cn/raspbian/</a></li>
+<li>郑州大学：<a href="http://mirrors.zzu.edu.cn/raspbian/" target="_blank" rel="noopener">http://mirrors.zzu.edu.cn/raspbian/</a></li>
+<li>吉林大学：<a href="http://mirrors.jlu.edu.cn/raspbian/" target="_blank" rel="noopener">http://mirrors.jlu.edu.cn/raspbian/</a></li>
+</ul>
+</li>
+</ol>
+<h3 id="（二）、服务器类"><a href="#（二）、服务器类" class="headerlink" title="（二）、服务器类"></a>（二）、服务器类</h3><ol>
+<li><p>Tomcat、Apache</p>
+<ul>
+<li>清华大学：<a href="https://mirrors.tuna.tsinghua.edu.cn/apache/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/apache/</a></li>
+<li>北京理工大学：<a href="http://mirror.bit.edu.cn/apache/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/</a></li>
+</ul>
+</li>
+<li><p>Nginx</p>
+<ul>
+<li>搜狐：<a href="http://mirrors.sohu.com/nginx/" target="_blank" rel="noopener">http://mirrors.sohu.com/nginx/</a></li>
+</ul>
+</li>
+<li><p>MySQL</p>
+<ul>
+<li>网易163：<a href="http://mirrors.163.com/mysql/Downloads/" target="_blank" rel="noopener">http://mirrors.163.com/mysql/Downloads/</a></li>
+<li>搜狐：<a href="http://mirrors.sohu.com/mysql/" target="_blank" rel="noopener">http://mirrors.sohu.com/mysql/</a></li>
+<li>USTC：<a href="http://mirrors.ustc.edu.cn/mysql-ftp/Downloads/" target="_blank" rel="noopener">http://mirrors.ustc.edu.cn/mysql-ftp/Downloads/</a></li>
+<li>北京理工大学：<a href="http://mirror.bit.edu.cn/mysql/Downloads/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/mysql/Downloads/</a></li>
+<li>中国电信天翼云：<a href="http://mirrors.ctyun.cn/Mysql/" target="_blank" rel="noopener">http://mirrors.ctyun.cn/Mysql/</a></li>
+</ul>
+</li>
+<li><p>PostgreSQL</p>
+<ul>
+<li>浙江大学：<a href="http://mirrors.zju.edu.cn/postgresql/" target="_blank" rel="noopener">http://mirrors.zju.edu.cn/postgresql/</a></li>
+</ul>
+</li>
+<li><p>MariaDB</p>
+<ul>
+<li>中国电信天翼云：<a href="http://mirrors.ctyun.cn/MariaDB/" target="_blank" rel="noopener">http://mirrors.ctyun.cn/MariaDB/</a></li>
+</ul>
+</li>
+<li><p>mongodb</p>
+<ul>
+<li>阿里云：<a href="http://mirrors.aliyun.com/mongodb/" target="_blank" rel="noopener">http://mirrors.aliyun.com/mongodb/</a></li>
+<li>清华大学：<a href="https://mirrors.tuna.tsinghua.edu.cn/mongodb/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/mongodb/</a></li>
+</ul>
+</li>
+<li><p>VideoLAN</p>
+<ul>
+<li>大连东软信息学院：<a href="http://mirrors.neusoft.edu.cn/videolan/" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn/videolan/</a></li>
+<li>中国科技大学：<a href="http://mirrors.ustc.edu.cn/videolan-ftp/" target="_blank" rel="noopener">http://mirrors.ustc.edu.cn/videolan-ftp/</a></li>
+</ul>
+</li>
+</ol>
+<h3 id="（三）、开发工具类"><a href="#（三）、开发工具类" class="headerlink" title="（三）、开发工具类"></a>（三）、开发工具类</h3><ol>
+<li>eclipse<ul>
+<li>大连东软信息学院：<a href="http://mirrors.neusoft.edu.cn/eclipse/technology/epp/downloads/release/" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn/eclipse/technology/epp/downloads/release/</a>（推荐，维护及时）</li>
+<li>中国科技大学：<a href="http://mirrors.ustc.edu.cn/eclipse/technology/epp/downloads/release/" target="_blank" rel="noopener">http://mirrors.ustc.edu.cn/eclipse/technology/epp/downloads/release/</a></li>
+<li>北京理工大学：<a href="http://mirror.bit.edu.cn/eclipse/technology/epp/downloads/release/" target="_blank" rel="noopener">http://mirror.bit.edu.cn/eclipse/technology/epp/downloads/release/</a></li>
+<li>东北大学：<a href="http://mirror.neu.edu.cn/eclipse/technology/epp/downloads/release/" target="_blank" rel="noopener">http://mirror.neu.edu.cn/eclipse/technology/epp/downloads/release/</a>（2016年1月停止更新）</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li><p>安卓SDK</p>
+<ul>
+<li>大连东软信息学院：<a href="http://mirrors.neusoft.edu.cn/android/repository/" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn/android/repository/</a></li>
+<li>郑州大学：<a href="http://mirrors.zzu.edu.cn/android/repository/" target="_blank" rel="noopener">http://mirrors.zzu.edu.cn/android/repository/</a>（2016年4月停止同步，2016年10月重新同步）</li>
+<li>南阳理工学院：<a href="http://mirror.nyist.edu.cn/android/repository/" target="_blank" rel="noopener">http://mirror.nyist.edu.cn/android/repository/</a>（停止同步）</li>
+</ul>
+</li>
+<li><p>安卓源码AOSP</p>
+<ul>
+<li>清华大学：<a href="https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/</a></li>
+<li>中国科技大学：<a href="https://lug.ustc.edu.cn/wiki/mirrors/help/aosp" target="_blank" rel="noopener">https://lug.ustc.edu.cn/wiki/mirrors/help/aosp</a></li>
+<li>东北大学：<a href="http://mirror.neu.edu.cn/android/" target="_blank" rel="noopener">http://mirror.neu.edu.cn/android/</a>（东北大学采用旧版本的脚本抓AOSP，2016年1月之后不再同步，不推荐使用这个镜像）</li>
+</ul>
+</li>
+<li><p>Docker Hub</p>
+<ul>
+<li>网易蜂巢：<a href="https://c.163.com/#/m/home/" target="_blank" rel="noopener">https://c.163.com/#/m/home/</a></li>
+<li>灵雀云：<a href="https://hub.alauda.cn/" target="_blank" rel="noopener">https://hub.alauda.cn/</a></li>
+<li>DaoCloud：<a href="https://hub.daocloud.io/" target="_blank" rel="noopener">https://hub.daocloud.io/</a></li>
+<li>时速云：<a href="https://hub.tenxcloud.com/" target="_blank" rel="noopener">https://hub.tenxcloud.com/</a></li>
+<li>阿里云：<a href="https://dev.aliyun.com/search.html" target="_blank" rel="noopener">https://dev.aliyun.com/search.html</a></li>
+</ul>
+</li>
+<li><p>GitLab-CE</p>
+<ul>
+<li>清华大学：<a href="https://mirror.tuna.tsinghua.edu.cn/help/gitlab-ce/" target="_blank" rel="noopener">https://mirror.tuna.tsinghua.edu.cn/help/gitlab-ce/</a></li>
+<li>浙江大学：<a href="http://www.lupaworld.com/article-257568-1.html" target="_blank" rel="noopener">http://www.lupaworld.com/article-257568-1.html</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="三、官方镜像列表状态地址"><a href="#三、官方镜像列表状态地址" class="headerlink" title="三、官方镜像列表状态地址"></a>三、官方镜像列表状态地址</h2><ul>
+<li>CentOS：<a href="http://mirror-status.centos.org/#cn" target="_blank" rel="noopener">http://mirror-status.centos.org/#cn</a></li>
+<li>Archlinux：<a href="https://www.archlinux.org/mirrors/status/" target="_blank" rel="noopener">https://www.archlinux.org/mirrors/status/</a></li>
+<li>Gentoo：<a href="https://www.gentoo.org/downloads/mirrors/#CN" target="_blank" rel="noopener">https://www.gentoo.org/downloads/mirrors/#CN</a></li>
+<li>Ubuntu CD：<a href="https://launchpad.net/ubuntu/+cdmirrors" target="_blank" rel="noopener">https://launchpad.net/ubuntu/+cdmirrors</a></li>
+<li>Ubuntu软件源：<a href="https://launchpad.net/ubuntu/+archivemirrors" target="_blank" rel="noopener">https://launchpad.net/ubuntu/+archivemirrors</a></li>
+<li>Debian：<a href="https://www.debian.org/mirror/list" target="_blank" rel="noopener">https://www.debian.org/mirror/list</a>，<a href="https://www.debian.org/mirror/list.en.html" target="_blank" rel="noopener">https://www.debian.org/mirror/list.en.html</a>，<a href="http://mirror.debian.org/status.html" target="_blank" rel="noopener">http://mirror.debian.org/status.html</a></li>
+<li>Linux Mint：<a href="https://linuxmint.com/mirrors.php" target="_blank" rel="noopener">https://linuxmint.com/mirrors.php</a></li>
+<li>Fedora Linux/Fedora EPEL：<a href="https://admin.fedoraproject.org/mirrormanager/mirrors" target="_blank" rel="noopener">https://admin.fedoraproject.org/mirrormanager/mirrors</a></li>
+<li>openSUSE：<a href="http://mirrors.opensuse.org/" target="_blank" rel="noopener">http://mirrors.opensuse.org/</a></li>
+<li>PackMan：<a href="http://packman.links2linux.org/mirrors" target="_blank" rel="noopener">http://packman.links2linux.org/mirrors</a></li>
+<li>FreeBSD：<a href="https://www.freebsd.org/doc/handbook/mirrors-ftp.html#mirrors-cn-ftp" target="_blank" rel="noopener">https://www.freebsd.org/doc/handbook/mirrors-ftp.html#mirrors-cn-ftp</a></li>
+<li>Apache：<a href="http://www.apache.org/mirrors/#cn" target="_blank" rel="noopener">http://www.apache.org/mirrors/#cn</a></li>
+<li>Cygwin：<a href="https://www.cygwin.com/mirrors.html" target="_blank" rel="noopener">https://www.cygwin.com/mirrors.html</a></li>
+<li>CRAN：<a href="https://cran.r-project.org/mirrors.html" target="_blank" rel="noopener">https://cran.r-project.org/mirrors.html</a></li>
+<li>CTAN：<a href="http://www.ctan.org/mirrors/" target="_blank" rel="noopener">http://www.ctan.org/mirrors/</a>，<a href="http://www.ctan.org/mirrors/mirmon#cn" target="_blank" rel="noopener">http://www.ctan.org/mirrors/mirmon#cn</a></li>
+<li>CPAN：<a href="http://www.cpan.org/SITES.html" target="_blank" rel="noopener">http://www.cpan.org/SITES.html</a></li>
+<li>Ruby：<a href="https://www.ruby-lang.org/en/downloads/mirrors/" target="_blank" rel="noopener">https://www.ruby-lang.org/en/downloads/mirrors/</a></li>
+<li>树莓派Raspbian：<a href="http://www.raspbian.org/RaspbianMirrors" target="_blank" rel="noopener">http://www.raspbian.org/RaspbianMirrors</a></li>
+<li>深度操作系统deepin：<a href="https://www.deepin.org/mirrors/releases/" target="_blank" rel="noopener">https://www.deepin.org/mirrors/releases/</a></li>
+<li>Scientific Linux：<a href="https://www.scientificlinux.org/downloads/sl-mirrors/" target="_blank" rel="noopener">https://www.scientificlinux.org/downloads/sl-mirrors/</a></li>
+<li>Sabayon Linux：<a href="http://www.sabayon.org/download/" target="_blank" rel="noopener">http://www.sabayon.org/download/</a></li>
+<li>MySQL：<a href="http://dev.mysql.com/downloads/mirrors/" target="_blank" rel="noopener">http://dev.mysql.com/downloads/mirrors/</a></li>
+<li>KNOPPIX：<a href="http://www.knopper.net/knoppix-mirrors/" target="_blank" rel="noopener">http://www.knopper.net/knoppix-mirrors/</a></li>
+<li>QT：<a href="http://download.qt.io/static/mirrorlist/" target="_blank" rel="noopener">http://download.qt.io/static/mirrorlist/</a></li>
+<li>VideoLAN：<a href="http://www.videolan.org/videolan/mirrors.html" target="_blank" rel="noopener">http://www.videolan.org/videolan/mirrors.html</a></li>
+<li>eclipse：<a href="http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-java-luna-SR2-win32.zip&format=xml" target="_blank" rel="noopener">http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR2/eclipse-java-luna-SR2-win32.zip&amp;format=xml</a></li>
+<li>PyPI：<a href="https://www.pypi-mirrors.org/" target="_blank" rel="noopener">https://www.pypi-mirrors.org/</a></li>
+<li>repoforge：<a href="http://mirror-status.repoforge.org/#cn" target="_blank" rel="noopener">http://mirror-status.repoforge.org/#cn</a></li>
+<li>Jenkins：<a href="http://mirrors.jenkins-ci.org/status.html#CN" target="_blank" rel="noopener">http://mirrors.jenkins-ci.org/status.html#CN</a></li>
+<li>MariaDB：<a href="http://spenntur.askmonty.org/#cn" target="_blank" rel="noopener">http://spenntur.askmonty.org/#cn</a></li>
+</ul>
+<h2 id="四、几个官方cn子域解析"><a href="#四、几个官方cn子域解析" class="headerlink" title="四、几个官方cn子域解析"></a>四、几个官方cn子域解析</h2><ul>
+<li>FreeBSD：<a href="ftp://ftp.cn.freebsd.org/">ftp://ftp.cn.freebsd.org/</a>&lt;–&gt;<a href="ftp://www.freebsdchina.org/">ftp://www.freebsdchina.org/</a>FreeBSD China</li>
+<li>Debian：<a href="http://ftp.cn.debian.org/" target="_blank" rel="noopener">http://ftp.cn.debian.org/</a>&lt;–&gt;<a href="https://mirrors.ustc.edu.cn/debian/" target="_blank" rel="noopener">https://mirrors.ustc.edu.cn/debian/</a>中国科学技术大学</li>
+<li>Debian：<a href="http://ftp2.cn.debian.org/" target="_blank" rel="noopener">http://ftp2.cn.debian.org/</a>&lt;–&gt;<a href="https://mirror.tuna.tsinghua.edu.cn/debian/" target="_blank" rel="noopener">https://mirror.tuna.tsinghua.edu.cn/debian/</a>清华大学</li>
+</ul>
+<h2 id="五、镜像站搭建参考"><a href="#五、镜像站搭建参考" class="headerlink" title="五、镜像站搭建参考"></a>五、镜像站搭建参考</h2><ol>
+<li>清华大学镜像管理器脚本，<a href="https://github.com/tuna/tunasync" target="_blank" rel="noopener">https://github.com/tuna/tunasync</a></li>
+<li>搭建开源镜像站-FPs，<a href="http://fangpeishi.github.io/build_opensource_mirror.html" target="_blank" rel="noopener">http://fangpeishi.github.io/build_opensource_mirror.html</a></li>
+<li>科大开源软件镜像是怎样炼成的，<a href="https://ring0.me/2013/09/how-ustc-mirror-works/" target="_blank" rel="noopener">https://ring0.me/2013/09/how-ustc-mirror-works/</a></li>
+<li>北京交通大学同步脚本，<a href="https://github.com/ideal/mirror" target="_blank" rel="noopener">https://github.com/ideal/mirror</a></li>
+<li>中国科学院同步脚本，<a href="https://github.com/opencas/mirrors" target="_blank" rel="noopener">https://github.com/opencas/mirrors</a></li>
+<li>浙江大学同步脚本，<a href="https://github.com/zjulug" target="_blank" rel="noopener">https://github.com/zjulug</a>，<a href="https://github.com/ZJU-NewMirrors" target="_blank" rel="noopener">https://github.com/ZJU-NewMirrors</a></li>
+<li>重庆邮电大学同步脚本，<a href="https://github.com/CQUPTMirror" target="_blank" rel="noopener">https://github.com/CQUPTMirror</a></li>
+<li>兰州大学同步脚本，<a href="https://github.com/LZUOSS/Mirror" target="_blank" rel="noopener">https://github.com/LZUOSS/Mirror</a></li>
+<li>教育网主干节点分布，<a href="http://www.cernet.com/aboutus/gyce_jgsz.htm" target="_blank" rel="noopener">http://www.cernet.com/aboutus/gyce_jgsz.htm</a></li>
+<li>教育网CERNET八大主干节点及地区节点，<a href="http://blog.csdn.net/gsls200808/article/details/75099728" target="_blank" rel="noopener">http://blog.csdn.net/gsls200808/article/details/75099728</a></li>
+<li>教育网41核心节点，<a href="http://www.cernet20.edu.cn/family.shtml" target="_blank" rel="noopener">http://www.cernet20.edu.cn/family.shtml</a></li>
+</ol>
+<h2 id="六、镜像站异动情况"><a href="#六、镜像站异动情况" class="headerlink" title="六、镜像站异动情况"></a>六、镜像站异动情况</h2><ul>
+<li>2016-11-13:新浪镜像站全网无法访问，由<a href="http://www.17ce.com/site/http/201611_026c9958e669fab697baa0520bbaf652.html" target="_blank" rel="noopener">17ce</a> 提供测试结果</li>
+<li>2016-11-13:北京交通大学镜像首页访问出现403Forbidden</li>
+<li>2016-11-13:哈尔滨工业大学镜像目录被清空</li>
+<li>2016-11-13:中国地质大学镜像站全网无法访问，由<a href="http://www.17ce.com/site/http/201611_2efa53aec3a780c57af46371b02ffeab.html" target="_blank" rel="noopener">17ce</a>提供测试结果</li>
+<li>2016-11-13:北京化工大学镜像站全网无法访问，由<a href="http://www.17ce.com/site/http/201611_39d1dd7415483b5256fc6dfe9481bcc5.html" target="_blank" rel="noopener">17ce</a>提供测试结果</li>
+<li>2016-11-13:云南大学pypi镜像地址无法访问</li>
+<li>2016-11-13:Linux运维派镜像首页访问出现404</li>
+<li>2016-11-26:新浪镜像站截至目前已经失联51天，移至关闭列表</li>
+<li>2016-11-26:首都在线移至企业站列表，首都在线是国内的一家主机商，有国内节点和海外节点</li>
+<li>2016-12-10:哈尔滨工业大学镜像目录截至目前已经超过一个月无法访问，移至关闭列表</li>
+<li>2017-1-5:北京化工大学镜像截至目前已经超过两个月无法访问，移至关闭列表</li>
+<li>2017-1-5:中国地质大学镜像截至目前已经超过两个月无法访问，移至关闭列表</li>
+<li>2017-1-5:新增南京信息职业技术学院镜像，这个镜像在2016年11上线</li>
+<li>2017-1-5:新增龙芯开源社区镜像，这个镜像应该是很早（2015年之前）就建立了只是不对外，目前只更新龙芯镜像</li>
+<li>2017-1-6:新增上海交通大学SJTUG镜像，据v2ex上的消息，这个镜像于2016年上线用来替代原来的上海交通大学镜像，不过目前这个镜像的发展情况也不乐观</li>
+<li>2017-5-17:cnnic镜像，腾讯bugly镜像于2017年4月关闭</li>
+<li>2017-5-17:海波镜像于2017年5月关闭，新增南京邮电大学通达学院、燕山大学、黔东南开源镜像站3个镜像</li>
+<li>2017-5-17:新增南京邮电大学镜像</li>
+<li>2018-1-19:ubuntu的cn子域cn.archive.ubuntu.com不再指向阿里云，改为指向美国IP(91.189.91.26)（18号DNS切换，全网无法正确解析）</li>
+<li>2018-5-16:更新上海交通大学SJTUG镜像，新地址已经包含了原先的ftp.sjtu.edu.cn大多数镜像，且新增了大量现代源</li>
+</ul>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">GuoTao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tomones.github.io/2020/08/11/%E5%9B%BD%E5%86%85%E5%BC%80%E6%BA%90%E9%95%9C%E5%83%8F%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/">https://tomones.github.io/2020/08/11/%E5%9B%BD%E5%86%85%E5%BC%80%E6%BA%90%E9%95%9C%E5%83%8F%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tomones.github.io" target="_blank">凌虚阁</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%B7%A5%E5%85%B7/">工具</a></div><div class="post_share"><div class="addthis_inline_share_toolbox"></div><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=null" async="async"></script></div></div><div class="post-reward"><button class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="http://cdn.andiycc.com/wechat.png" alt="微信" onclick="window.open('http://cdn.andiycc.com/wechat.png')"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="http://cdn.andiycc.com/alipay.png" alt="支付宝" onclick="window.open('http://cdn.andiycc.com/alipay.png')"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></button></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/08/27/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9%E9%94%81%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9F%E5%A6%82%E4%BD%95%E6%89%8B%E5%8A%A8%E6%A8%A1%E6%8B%9F%E4%B8%80%E4%B8%AA%E6%AD%BB%E9%94%81%EF%BC%9F/"><img class="prev-cover" data-src="http://cdn.andiycc.com/fengmian.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">谈谈你对锁的理解？如何手动模拟一个死锁？</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BF%9B%E5%88%B6%E7%9F%A5%E8%AF%86/"><img class="next-cover" data-src="http://cdn.andiycc.com/fengmian.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">计算机进制知识</div></div></a></div></nav></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By GuoTao</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">簡</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/js/third-party/click_heart.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
